@@ -2,28 +2,12 @@ import { getUser } from "@/lib/data";
 import styles from "./style.module.scss";
 import Image from "next/image";
 
-// FETCH DATA WITH AN API
-// const getData = async (userId) => {
-//   const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}` ,{cache:"no-store"});
-
-//   if (!res.ok) {
-//     throw new Error("Something went wrong");
-//   }
-
-//   return res.json();
-// };
-// interface NavLinkProps {
-// 	userId:string
-// }
 
 
-const PostUser = async ({ userId }) => {
-	// FETCH DATA WITH AN API
-	// const user = await getData(userId);
+const PostUser = async ({ userId }: { userId: string }) => {
 
-	// FETCH DATA WITHOUT AN API
 	const user = await getUser(userId);
-	console.log(user)
+
 	return (
 		<div className={styles.container}>
 			<Image

@@ -1,5 +1,26 @@
 import mongoose from "mongoose";
 
+
+export interface userProps {
+	id: string
+	username: string
+	email: string
+	isAdmin: boolean
+	password: string
+	img?: string
+}
+
+export interface postProps {
+	id: string
+	userId: string
+	title: string
+	desc: string
+	img?: string
+	slug: string
+	createdAt: Date
+
+}
+
 const userSchema = new mongoose.Schema(
 	{
 		username: {

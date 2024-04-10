@@ -1,20 +1,19 @@
-import { Post, User } from "./models";
+import { Post, User, postProps, userProps } from "./models";
 import { unstable_noStore as noStore } from "next/cache";
 import { connectToDb } from "./utils";
-
-export const getPosts = async () => {
+export const getPosts = async (): Promise<postProps[]> => {
 	try {
-	connectToDb();
-	const posts = await Post.find();
-	return posts;
-	} 
+		connectToDb();
+		const posts = await Post.find();
+		return posts;
+	}
 	catch (err) {
 		console.log(err);
 		throw new Error("Failed to fetch posts!");
 	}
 };
 
-export const getPost = async (slug) => {
+export const getPost = async (slug: string): Promise<postProps> => {
 	try {
 		connectToDb();
 		const post = await Post.findOne({ slug });
@@ -25,7 +24,7 @@ export const getPost = async (slug) => {
 	}
 };
 
-export const getUser = async (id) => {
+export const getUser = async (id: string): Promise<userProps> => {
 	noStore();
 	try {
 		connectToDb();
@@ -37,7 +36,7 @@ export const getUser = async (id) => {
 	}
 };
 
-export const getUsers = async () => {
+export const getUsers = async (): Promise<userProps[]> => {
 	try {
 		connectToDb();
 		const users = await User.find();

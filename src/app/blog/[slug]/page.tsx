@@ -3,9 +3,15 @@ import styles from "./style.module.scss";
 import { Suspense } from "react";
 import { getPost } from "@/lib/data";
 import PostUser from "@/components/PostUser/postUser";
+import { postProps } from "@/lib/models";
 
-
-export const generateMetadata = async ({ params }) => {
+interface BlogCardProps {
+	params: {
+		slug: string;
+	}
+	// post: postProps
+}
+export const generateMetadata = async ({ params }: BlogCardProps) => {
 	const { slug } = params;
 
 	const post = await getPost(slug);
@@ -16,12 +22,11 @@ export const generateMetadata = async ({ params }) => {
 	};
 };
 
-const SinglePostPage = async ({ params }) => {
+const SinglePostPage = async ({ params }: BlogCardProps) => {
 	const { slug } = params;
 
 
 	const post = await getPost(slug);
-
 	return (
 		<div className={styles.container}>
 			{post.img && (
