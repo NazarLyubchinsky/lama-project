@@ -11,7 +11,6 @@ interface NavLinkProps {
 	};
 }
 
-// const NavLink = ({ item }) => {
 const NavLink = ({ item }: NavLinkProps) => {
 	const pathName = usePathname();
 

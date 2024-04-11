@@ -4,7 +4,8 @@ import { useState } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import NavLink from "./NavLink/NavLink";
-// import { handleLogout } from "@/lib/action";
+import { handleLogout } from "@/lib/action";
+
 
 const links = [
 	{
@@ -25,12 +26,19 @@ const links = [
 	},
 ];
 
-// const Links = ({ session }) => {
-const Links = () => {
+interface LinksProps {
+	session: {
+		user: {
+			name: string
+			email: string
+			image: string
+			isAdmin?: boolean
+		}
+		expires: '2024-05-11T15:28:22.139Z'
+	}
+}
+const Links = ({ session }: LinksProps) => {
 	const [open, setOpen] = useState(false);
-
-	const session = true;
-	const isAdmin = true;
 
 	return (
 		<div className={styles.container}>
@@ -38,17 +46,7 @@ const Links = () => {
 				{links.map((link) => (
 					<NavLink item={link} key={link.title} />
 				))}
-				{session ? (
-					<>
-						{session && <NavLink item={{ title: "Admin", path: "/admin" }} />}
-						{/* <form action={handleLogout}>
-							<button className={styles.logout}>Logout</button>
-						</form> */}
-					</>
-				) : (
-					<NavLink item={{ title: "Login", path: "/login" }} />
-				)}
-				{/* {session?.user ? (
+				{session?.user ? (
 					<>
 						{session.user?.isAdmin && <NavLink item={{ title: "Admin", path: "/admin" }} />}
 						<form action={handleLogout}>
@@ -57,7 +55,7 @@ const Links = () => {
 					</>
 				) : (
 					<NavLink item={{ title: "Login", path: "/login" }} />
-				)} */}
+				)}
 			</div>
 			<Image
 				className={styles.menuButton}

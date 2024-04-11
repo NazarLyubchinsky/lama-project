@@ -3,13 +3,11 @@ import styles from "./style.module.scss";
 import { Suspense } from "react";
 import { getPost } from "@/lib/data";
 import PostUser from "@/components/PostUser/postUser";
-import { postProps } from "@/lib/models";
 
 interface BlogCardProps {
 	params: {
 		slug: string;
 	}
-	// post: postProps
 }
 export const generateMetadata = async ({ params }: BlogCardProps) => {
 	const { slug } = params;
