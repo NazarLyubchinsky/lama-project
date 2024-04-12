@@ -5,7 +5,7 @@ import styles from "./style.module.scss";
 import Image from "next/image";
 import NavLink from "./NavLink/NavLink";
 import { handleLogout } from "@/lib/action";
-
+import type { Session } from "next-auth"
 
 const links = [
 	{
@@ -26,7 +26,7 @@ const links = [
 	},
 ];
 
-interface LinksProps {
+export interface LinksProps {
 	session: {
 		user: {
 			name: string
@@ -37,9 +37,10 @@ interface LinksProps {
 		expires: '2024-05-11T15:28:22.139Z'
 	}
 }
-const Links = ({ session }: LinksProps) => {
-	const [open, setOpen] = useState(false);
 
+
+const Links = ({ session }: { session: Session }) => {
+	const [open, setOpen] = useState(false);
 	return (
 		<div className={styles.container}>
 			<div className={styles.links}>

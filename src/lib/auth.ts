@@ -1,12 +1,27 @@
-import NextAuth from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
 import GitHub from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDb } from "./utils";
-import { User } from "./models";
+import { User, userProps } from "./models";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
 
-const login = async (credentials) => {
+type CredentialsProps = {
+	username: string;
+	password: string;
+}
+declare module "next-auth" {
+	/**
+	 * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+	 */
+	interface Session {
+		user: {
+			isAdmin?: string | null
+		} & DefaultSession["user"] // To keep the default types
+	}
+}
+
+const login = async (credentials: CredentialsProps): Promise<userProps> => {
 	try {
 		connectToDb();
 		const user = await User.findOne({ username: credentials.username });
@@ -40,9 +55,12 @@ export const {
 			clientSecret: process.env.GITHUB_SECRET,
 		}),
 		CredentialsProvider({
-			async authorize(credentials) {
+			async authorize(credentials: Partial<CredentialsProps>) {
 				try {
-					const user = await login(credentials);
+					if (credentials.username === undefined) {
+						throw new Error("Username is required");
+					}
+					const user = await login(credentials as CredentialsProps);
 					return user;
 				} catch (err) {
 					return null;
@@ -52,16 +70,16 @@ export const {
 	],
 	callbacks: {
 		async signIn({ user, account, profile }) {
-			if (account.provider === "github") {
+			if (account && account.provider === "github") {
 				connectToDb();
 				try {
-					const user = await User.findOne({ email: profile.email });
+					const user = await User.findOne({ email: profile?.email });
 
 					if (!user) {
 						const newUser = new User({
-							username: profile.login,
-							email: profile.email,
-							image: profile.avatar_url,
+							username: profile?.login,
+							email: profile?.email,
+							image: profile?.avatar_url,
 						});
 
 						await newUser.save();
@@ -76,3 +94,4 @@ export const {
 		...authConfig.callbacks,
 	},
 });
+
