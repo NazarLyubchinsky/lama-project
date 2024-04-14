@@ -13,7 +13,6 @@ interface NavLinkProps {
 
 const NavLink = ({ item }: NavLinkProps) => {
 	const pathName = usePathname();
-
 	return (
 		<Link
 			href={item.path}

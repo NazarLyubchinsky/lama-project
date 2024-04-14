@@ -10,7 +10,7 @@ const Navbar = async () => {
 		<div className={styles.container}>
 			<Link href="/" className={styles.logo}>Logo</Link>
 			<div>
-				{session && <Links session={session } />}
+				<Links session={session} />
 			</div>
 		</div>
 	)

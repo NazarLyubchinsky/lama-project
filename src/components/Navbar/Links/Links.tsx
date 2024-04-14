@@ -1,15 +1,14 @@
 "use client";
-
+import type { Session } from "next-auth"
 import { useState } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
-import NavLink from "./NavLink/NavLink";
 import { handleLogout } from "@/lib/action";
-import type { Session } from "next-auth"
+import NavLink from "./NavLink/NavLink";
 
 const links = [
 	{
-		title: "Home",
+		title: "Homepage",
 		path: "/",
 	},
 	{
@@ -26,21 +25,10 @@ const links = [
 	},
 ];
 
-export interface LinksProps {
-	session: {
-		user: {
-			name: string
-			email: string
-			image: string
-			isAdmin?: boolean
-		}
-		expires: '2024-05-11T15:28:22.139Z'
-	}
-}
-
-
-const Links = ({ session }: { session: Session }) => {
+const Links = ({ session }: { session: Session | null }) => {
 	const [open, setOpen] = useState(false);
+
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.links}>
