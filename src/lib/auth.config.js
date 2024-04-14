@@ -3,7 +3,7 @@ export const authConfig = {
 		signIn: "/login",
 	},
 	providers: [],
-	basePath: "/api/auth",
+	// basePath: "/api/auth",
 
 	callbacks: {
 		// FOR MORE DETAIL ABOUT CALLBACK FUNCTIONS CHECK https://next-auth.js.org/configuration/callbacks
