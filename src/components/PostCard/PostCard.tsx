@@ -11,7 +11,7 @@ const PostCard = ({ post }: PostCardProps) => {
 		<div className={styles.container}>
 			<div className={styles.top}>
 				{post.img && <div className={styles.imgContainer}>
-					<Image src={post.img} alt="" fill className={styles.img} />
+					<Image src={post.img} alt={post.title} fill className={styles.img} />
 				</div>}
 				<span className={styles.date}>{post.createdAt?.toString().slice(4, 16)}</span>
 			</div>

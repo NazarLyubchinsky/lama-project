@@ -74,12 +74,11 @@ export const {
 				connectToDb();
 				try {
 					const user = await User.findOne({ email: profile?.email });
-
 					if (!user) {
 						const newUser = new User({
 							username: profile?.login,
 							email: profile?.email,
-							image: profile?.avatar_url,
+							img: profile?.avatar_url,
 						});
 
 						await newUser.save();
