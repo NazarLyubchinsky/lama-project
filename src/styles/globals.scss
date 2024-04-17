@@ -4,6 +4,7 @@
 	--text: white;
 	--textSoft: #e5e5e5;
 	--btn: #3673fd;
+	--orange: orange;
 }
 
 * {
@@ -73,5 +74,10 @@ a {
 @media (max-width: 475px) {
 	.container {
 		width: 380px;
+	}
+}
+@media (max-width: 380px) {
+	.container {
+		width: 320px;
 	}
 }

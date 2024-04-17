@@ -9,12 +9,14 @@ interface NavLinkProps {
 		title: string;
 		path: string;
 	};
+	onClick?: () => void;
 }
 
-const NavLink = ({ item }: NavLinkProps) => {
+const NavLink = ({ item, onClick }: NavLinkProps) => {
 	const pathName = usePathname();
 	return (
 		<Link
+			onClick={onClick}
 			href={item.path}
 			className={`${styles.container} ${pathName === item.path && styles.active
 				}`}

@@ -1,3 +1,4 @@
+@import "../styles/mixins.scss";
 .container {
 	display: flex;
 	gap: 100px;
@@ -29,11 +30,21 @@
 	cursor: pointer;
 	border: none;
 	border-radius: 5px;
-}
-
-.button:first-child {
-	background-color: var(--btn);
-	color: var(--text);
+	text-align: center;
+	&:first-child {
+		background-color: var(--btn);
+		color: var(--text);
+		&:hover {
+			@include hoverButtonWhite;
+		}
+	}
+	&:last-child {
+		background-color: var(--text);
+		color: var(--bg);
+		&:hover {
+			@include hoverButtonBlue;
+		}
+	}
 }
 
 .brands {
@@ -52,6 +63,10 @@
 	.container {
 		flex-direction: column;
 		text-align: center;
+		gap: 50px;
+	}
+	.brands {
+		display: none;
 	}
 
 	.buttons {
@@ -63,8 +78,9 @@
 	.title {
 		font-size: 64px;
 	}
-
-	.brands {
-		width: 100%;
-	}
+}
+@media (max-width: 400px) {
+.title{
+	font-size: 54px;
+}
 }

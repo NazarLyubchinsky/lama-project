@@ -1,3 +1,4 @@
+@import '../../styles/mixins.scss';
 .container {
 	display: flex;
 	flex-direction: column;
@@ -41,4 +42,6 @@
 
 .link {
 	text-decoration: underline;
+	@include hoverColor;
+	
 }

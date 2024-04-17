@@ -1,0 +1,22 @@
+@mixin hoverColor() {
+	transition: all 0.3s ease-in-out;
+	&:hover {
+		color: var(--orange);
+		text-decoration: none;
+	}
+}
+@mixin hoverButtonWhite() {
+	transition: all 0.3s ease-in-out;
+	&:hover {
+		background-color: var(--text);
+		color: var(--bg);
+		text-decoration: underline;
+	}
+}
+@mixin hoverButtonBlue() {
+	transition: all 0.3s ease-in-out;
+	&:hover {
+		background-color: var(--btn);
+		color: var(--text);
+	}
+}

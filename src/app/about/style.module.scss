@@ -52,10 +52,19 @@
 	.container {
 		flex-direction: column;
 		text-align: center;
+		gap: 50px;
 	}
-
 	.boxes {
 		flex-direction: column;
 		gap: 50px;
+	}
+}
+
+@media (max-width: 540px) {
+	.title{
+		font-size: 32px;
+	}
+	.textContainer{
+		gap: 30px
 	}
 }

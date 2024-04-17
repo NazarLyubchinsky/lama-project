@@ -5,12 +5,12 @@
 }
 
 .post {
-	width: 30%;
+	width: calc(33.333% - 14px);
 }
 
 @media screen and (max-width: 1280px) {
 	.post {
-		width: 45%;
+		width: calc(50% - 10px);
 	}
 }
 

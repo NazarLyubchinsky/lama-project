@@ -28,6 +28,10 @@ const links = [
 const Links = ({ session }: { session: Session | null }) => {
 	const [open, setOpen] = useState(false);
 
+	const handleClick = () => {
+		setOpen(!open);
+		open ? document.body.style.overflow = 'auto' : document.body.style.overflow = 'hidden'
+	};
 
 	return (
 		<div className={styles.container}>
@@ -52,14 +56,18 @@ const Links = ({ session }: { session: Session | null }) => {
 				alt={"menu burger"}
 				width={30}
 				height={30}
-				onClick={() => setOpen((prev) => !prev)}
+				onClick={handleClick}
 			/>
 			{open && (
-				<div className={styles.mobileLinks}>
-					{links.map((link) => (
-						<NavLink item={link} key={link.title} />
-					))}
-				</div>
+				<>
+					<div className={styles.modalOverlay} onClick={handleClick} >
+					</div>
+					<div className={styles.mobileLinks}>
+						{links.map((link) => (
+							<NavLink item={link} key={link.title} onClick={handleClick}/>
+						))}
+					</div>
+				</>
 			)}
 		</div>
 	);

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -12,8 +13,9 @@ export default function Home() {
 					blanditiis adipisci minima reiciendis a autem assumenda dolore.
 				</p>
 				<div className={styles.buttons}>
-					<button className={styles.button}>Learn More</button>
-					<button className={styles.button}>Contact</button>
+					<Link className={styles.button} href="/about">Learn More
+					</Link>
+					<Link className={styles.button} href="/contact">Contact</Link>
 				</div>
 				<div className={styles.brands}>
 					<Image src="/brands.png" alt={'images of brands'} fill className={styles.brandImg} />
