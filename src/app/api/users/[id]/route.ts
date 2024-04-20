@@ -1,0 +1,20 @@
+import { User } from "@/lib/models";
+import { connectToDb } from "@/lib/utils";
+import { NextApiRequest } from "next";
+import { NextResponse } from "next/server";
+import { unstable_noStore as noStore } from "next/cache";
+
+
+export const GET = async (request: NextApiRequest, { params }: { params: { id: string } }) => {
+	const { id } = params;
+	noStore();
+	try {
+		connectToDb();
+
+		const user = await User.findById(id);
+		return NextResponse.json(user);
+	} catch (err) {
+		console.log(err);
+		throw new Error("Failed to fetch post!");
+	}
+};

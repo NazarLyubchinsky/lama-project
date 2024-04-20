@@ -64,7 +64,7 @@ const Links = ({ session }: { session: Session | null }) => {
 					</div>
 					<div className={styles.mobileLinks}>
 						{links.map((link) => (
-							<NavLink item={link} key={link.title} onClick={handleClick}/>
+							<NavLink item={link} key={link.title} onClick={handleClick} />
 						))}
 					</div>
 				</>

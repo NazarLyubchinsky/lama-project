@@ -1,11 +1,10 @@
-import { getPosts } from "@/lib/data";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { deletePost } from "@/lib/action";
+import { getDataPosts } from "@/utils/getData/getDataPosts";
 
 const AdminPosts = async () => {
-	const posts = await getPosts();
-
+	const posts = await getDataPosts();
 	return (
 		<div className={styles.container}>
 			<h1>Posts</h1>
@@ -21,7 +20,7 @@ const AdminPosts = async () => {
 						<span className={styles.postTitle}>{post.title}</span>
 					</div>
 					<form action={deletePost}>
-						<input type="hidden" name="id" value={post.id} />
+						<input type="hidden" name="id" value={post._id} />
 						<button className={styles.postButton}>Delete</button>
 					</form>
 				</div>

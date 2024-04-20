@@ -2,6 +2,7 @@ import Image from "next/image"
 import styles from "./style.module.scss"
 import Link from "next/link"
 import { postProps } from "@/lib/models"
+import { formatDate } from "@/utils/formatDate"
 
 interface PostCardProps {
 	post: postProps
@@ -15,7 +16,9 @@ const PostCard = ({ post }: PostCardProps) => {
 						<Image src={post.img ? post.img : '/300x400.svg'} alt={post.title} fill className={styles.img} />
 					</div>
 				}
-				<span className={styles.date}>{post.createdAt?.toString().slice(4, 16)}</span>
+				<span className={styles.date}>
+					{formatDate(post.createdAt)}
+				</span>
 			</div>
 			<div className={styles.bottom}>
 				<h1 className={styles.title}>{post.title}</h1>

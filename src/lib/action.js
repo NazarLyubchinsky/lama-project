@@ -31,7 +31,6 @@ export const addPost = async (prevState, formData) => {
 
 export const deletePost = async (formData) => {
 	const { id } = Object.fromEntries(formData);
-
 	try {
 		connectToDb();
 
@@ -46,7 +45,7 @@ export const deletePost = async (formData) => {
 };
 
 export const addUser = async (prevState, formData) => {
-	const { username, email, password, img } = Object.fromEntries(formData);
+	const { username, email, password, img, isAdmin } = Object.fromEntries(formData);
 
 	try {
 		connectToDb();
@@ -55,6 +54,7 @@ export const addUser = async (prevState, formData) => {
 			email,
 			password,
 			img,
+			isAdmin
 		});
 
 		await newUser.save();
@@ -68,7 +68,6 @@ export const addUser = async (prevState, formData) => {
 
 export const deleteUser = async (formData) => {
 	const { id } = Object.fromEntries(formData);
-
 	try {
 		connectToDb();
 

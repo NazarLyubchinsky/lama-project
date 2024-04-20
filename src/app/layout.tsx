@@ -7,8 +7,8 @@ import Footer from "@/components/Footer/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Lama Project",
-	description: "Lama main project",
+	title: "my Project",
+	description: "main project",
 };
 
 export default function RootLayout({

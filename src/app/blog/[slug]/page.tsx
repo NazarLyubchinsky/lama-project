@@ -1,18 +1,23 @@
 import Image from "next/image";
 import styles from "./style.module.scss";
 import { Suspense } from "react";
-import { getPost } from "@/lib/data";
 import PostUser from "@/components/PostUser/postUser";
+import Preloader from "@/components/Preloader/Preloader";
+import { getDataPost } from "@/utils/getData/getDataPost";
+import { formatDate } from "@/utils/formatDate";
+
 
 interface BlogCardProps {
 	params: {
 		slug: string;
 	}
 }
+
 export const generateMetadata = async ({ params }: BlogCardProps) => {
 	const { slug } = params;
 
-	const post = await getPost(slug);
+	const post = await getDataPost(slug);
+
 
 	return {
 		title: post.title,
@@ -23,8 +28,8 @@ export const generateMetadata = async ({ params }: BlogCardProps) => {
 const SinglePostPage = async ({ params }: BlogCardProps) => {
 	const { slug } = params;
 
+	const post = await getDataPost(slug);
 
-	const post = await getPost(slug);
 	return (
 		<div className={styles.container}>
 			{post.img && (
@@ -36,20 +41,19 @@ const SinglePostPage = async ({ params }: BlogCardProps) => {
 				<h1 className={styles.title}>{post.title}</h1>
 				<div className={styles.detail}>
 					{post && (
-						<Suspense fallback={<div>Loading...</div>}>
-							<PostUser userId={post.userId} />
-						</Suspense>
+						<PostUser userId={post.userId} />
 					)}
 					<div className={styles.detailText}>
 						<span className={styles.detailTitle}>Published</span>
 						<span className={styles.detailValue}>
-							{post.createdAt.toString().slice(4, 16)}
+							{formatDate(post.createdAt)}
 						</span>
 					</div>
 				</div>
 				<div className={styles.content}>{post.desc}</div>
 			</div>
 		</div>
+		// <div></div>
 	);
 };
 

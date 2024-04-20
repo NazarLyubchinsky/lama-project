@@ -1,11 +1,10 @@
-import { getUsers } from "@/lib/data";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { deleteUser } from "@/lib/action";
+import { getDataUsers } from "@/utils/getData/getDataUsers";
 
 const AdminUsers = async () => {
-	const users = await getUsers();
-
+	const users = await getDataUsers();
 	return (
 		<div className={styles.container}>
 			<h1>Users</h1>
@@ -21,7 +20,7 @@ const AdminUsers = async () => {
 						<span>{user.username}</span>
 					</div>
 					<form action={deleteUser}>
-						<input type="hidden" name="id" value={user.id} />
+						<input type="hidden" name="id" value={user._id} />
 						<button className={styles.userButton}>Delete</button>
 					</form>
 				</div>
