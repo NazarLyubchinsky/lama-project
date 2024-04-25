@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 
 export const addPost = async (prevState, formData) => {
 	const { title, desc, slug, userId, img } = Object.fromEntries(formData);
-
+	
 	try {
 		connectToDb();
 		const newPost = new Post({

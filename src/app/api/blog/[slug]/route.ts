@@ -1,8 +1,11 @@
 import { Post } from "@/lib/models";
 import { connectToDb } from "@/lib/utils";
+import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
-
-export const GET = async (request, { params }) => {
+interface IParams {
+	params: { slug: string };
+}
+export const GET = async (request: NextApiRequest, { params }: IParams) => {
 	const { slug } = params;
 
 	try {
@@ -16,7 +19,7 @@ export const GET = async (request, { params }) => {
 	}
 };
 
-export const DELETE = async (request, { params }) => {
+export const DELETE = async (request: NextApiRequest, { params }: IParams) => {
 	const { slug } = params;
 
 	try {

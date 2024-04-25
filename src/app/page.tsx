@@ -1,9 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
 import Link from "next/link";
-
 export default function Home() {
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.textContainer}>
@@ -18,11 +16,12 @@ export default function Home() {
 					<Link className={styles.button} href="/contact">Contact</Link>
 				</div>
 				<div className={styles.brands}>
-					<Image src="/brands.png" alt={'images of brands'} fill className={styles.brandImg} />
+					<Image src="/brands.png" alt={'images of brands'} fill sizes="(max-width: 1200px) 50vw, 100vw"
+						className={styles.brandImg} />
 				</div>
 			</div>
 			<div className={styles.imgContainer}>
-				<Image src="/hero.gif" alt={'hero image'} fill className={styles.heroImg} />
+				<Image src="/hero.gif" alt={'hero image'} fill sizes="(max-width: 1200px) 50vw, 100vw" className={styles.heroImg} />
 			</div>
 		</div>
 	);

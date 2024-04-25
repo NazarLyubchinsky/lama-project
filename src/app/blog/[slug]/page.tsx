@@ -34,7 +34,7 @@ const SinglePostPage = async ({ params }: BlogCardProps) => {
 		<div className={styles.container}>
 			{post.img && (
 				<div className={styles.imgContainer}>
-					<Image src={post.img} alt={post.title} fill className={styles.img} />
+					<Image src={post.img} alt={post.title} fill sizes="(max-width: 1200px) 50vw, 100vw" className={styles.img} />
 				</div>
 			)}
 			<div className={styles.textContainer}>
@@ -53,7 +53,6 @@ const SinglePostPage = async ({ params }: BlogCardProps) => {
 				<div className={styles.content}>{post.desc}</div>
 			</div>
 		</div>
-		// <div></div>
 	);
 };
 

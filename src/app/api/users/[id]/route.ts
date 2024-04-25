@@ -3,9 +3,11 @@ import { connectToDb } from "@/lib/utils";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { unstable_noStore as noStore } from "next/cache";
+interface IParams {
+	params: { id: string };
+}
 
-
-export const GET = async (request: NextApiRequest, { params }: { params: { id: string } }) => {
+export const GET = async (request: NextApiRequest, { params }: IParams) => {
 	const { id } = params;
 	noStore();
 	try {

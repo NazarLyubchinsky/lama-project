@@ -9,3 +9,4 @@ export const getDataPosts = async (): Promise<postProps[]> => {
 
 	return res.json();
 };
+

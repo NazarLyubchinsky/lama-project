@@ -13,7 +13,7 @@ const PostCard = ({ post }: PostCardProps) => {
 			<div className={styles.top}>
 				{
 					<div className={styles.imgContainer}>
-						<Image src={post.img ? post.img : '/300x400.svg'} alt={post.title} fill className={styles.img} />
+						<Image src={post.img ? post.img : '/300x400.svg'} alt={post.title} loading="lazy" fill sizes="(max-width: 1200px) 50vw, 100vw" className={styles.img} />
 					</div>
 				}
 				<span className={styles.date}>
