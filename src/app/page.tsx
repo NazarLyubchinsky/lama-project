@@ -21,7 +21,7 @@ export default function Home() {
 				</div>
 			</div>
 			<div className={styles.imgContainer}>
-				<Image src="/hero.gif" alt={'hero image'} fill sizes="(max-width: 1200px) 50vw, 100vw" className={styles.heroImg} />
+				<Image src="/hero.gif" alt={'hero image'} fill sizes="(max-width: 1200px) 50vw, 100vw" priority className={styles.heroImg} />
 			</div>
 		</div>
 	);

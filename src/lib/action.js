@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 
 export const addPost = async (prevState, formData) => {
 	const { title, desc, slug, userId, img } = Object.fromEntries(formData);
-	
+
 	try {
 		connectToDb();
 		const newPost = new Post({
@@ -54,7 +54,7 @@ export const addUser = async (prevState, formData) => {
 			email,
 			password,
 			img,
-			isAdmin
+			isAdmin,
 		});
 
 		await newUser.save();
@@ -81,6 +81,65 @@ export const deleteUser = async (formData) => {
 	}
 };
 
+export const editUser = async (prevState, formData) => {
+	const { username, email, id, phone, } = Object.fromEntries(formData);
+	const formattedPhoneNumber = phone.replace(/[-_]/g, '');
+
+	try {
+		connectToDb();
+		const userToEdit = await User.findById(id);
+		userToEdit.username = username;
+		userToEdit.email = email;
+		userToEdit.phone = formattedPhoneNumber;
+		await userToEdit.save();
+		revalidatePath("/profile");
+
+		return { success: "User updated successfully" };
+	} catch (err) {
+		console.log(Object.values(err.errors).map(error => error))
+		if (err.name === 'ValidationError') {
+			const validationErrors = Object.values(err.errors).map(error => error.message);
+			return { error: validationErrors.join(', ') };
+		} else {
+			return { error: 'Something went wrong!' };
+		}
+	}
+};
+export const editUserPassword = async (prevState, formData) => {
+	const { password, passwordRepeat, id } = Object.fromEntries(formData);
+	if (!password || !passwordRepeat) {
+		return { error: "All fields are required" };
+	}
+	if (password.length < 6) {
+		return { error: "Password must be at least 6 characters long" };
+	}
+	if (password !== passwordRepeat) {
+		return { error: "Passwords do not match" };
+	}
+
+	try {
+		connectToDb();
+		const userToEditPassword = await User.findById(id);
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(password, salt);
+		userToEditPassword.password = hashedPassword;
+		await userToEditPassword.save();
+		revalidatePath("/profile");
+		return { success: "Password updated successfully" };
+	} catch (err) {
+		console.log(err)
+		// console.log(Object.values(err.errors).map(error => error))
+		if (err.name === 'ValidationError') {
+			const validationErrors = Object.values(err.errors).map(error => error.message);
+			return { error: validationErrors.join(', ') };
+		} else {
+			return { error: 'Something went wrong!' };
+		}
+	}
+}
+
+
+
 export const handleGithubLogin = async () => {
 	"use server";
 	await signIn("github");
@@ -92,9 +151,8 @@ export const handleLogout = async () => {
 };
 
 export const register = async (previousState, formData) => {
-	const { username, email, password, img, passwordRepeat } =
-		Object.fromEntries(formData);
-
+	const { username, email, password, img, passwordRepeat } = Object.fromEntries(formData);
+	const phone = '';
 	if (password !== passwordRepeat) {
 		return { error: "Passwords do not match" };
 	}
@@ -116,8 +174,9 @@ export const register = async (previousState, formData) => {
 			email,
 			password: hashedPassword,
 			img,
+			phone
 		});
-
+		console.log(newUser)
 		await newUser.save();
 		console.log("saved to db");
 

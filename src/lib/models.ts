@@ -3,25 +3,28 @@ import mongoose from "mongoose";
 
 export interface userProps {
 	// slug: string
-	// _id: string
+	_id: string
+	isAdmin: boolean;
+	password: string;
 	id: string
 	username: string
 	email: string
-	isAdmin: boolean
-	password: string
 	img?: string
+	phone: string
+
 }
 
 export interface postProps {
 	_id: string
 	id: string
+	username: string
 	userId: string
 	title: string
 	desc: string
 	img?: string
 	slug: string
-	createdAt: Date
-	username: string
+	email: string
+	createdAt: string
 
 }
 
@@ -31,17 +34,23 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 			unique: true,
-			min: 3,
-			max: 20
+			minLength: 5,
+			maxLength: 15
 		},
 		email: {
 			type: String,
 			required: true,
 			unique: true,
-			max: 50
+			maxLength: 50,
+			match: /^[a-z0-9]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
+			lowercase: true,
+			trim: true,
 		},
 		password: {
 			type: String,
+			unique: true,
+			required: true,
+			minLength: 5
 		},
 		img: {
 			type: String,
@@ -50,6 +59,13 @@ const userSchema = new mongoose.Schema(
 			type: Boolean,
 			default: false
 		},
+		phone: {
+			type: String,
+			required: true,
+			unique: true,
+			minLength: 15,
+		}
+
 	}, {
 	timestamps: true
 }
