@@ -1,4 +1,4 @@
-.container {
+.content {
 	display: flex;
 	gap: 100px;
 }
@@ -23,7 +23,8 @@
 	flex-direction: column;
 	gap: 20px;
 	input,
-	textarea, &Text {
+	textarea,
+	&Text {
 		width: 100%;
 		padding: 20px;
 		border-radius: 5px;
@@ -44,5 +45,14 @@
 	textarea {
 		max-height: 200px;
 		resize: vertical;
+	}
+}
+@media (max-width: 44rem) {
+	.content {
+		flex-direction: column;
+		gap: 50px;
+	}
+	.profile {
+		max-width: 100%;
 	}
 }

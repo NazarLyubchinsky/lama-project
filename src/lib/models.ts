@@ -24,7 +24,7 @@ export interface postProps {
 	img?: string
 	slug: string
 	email: string
-	createdAt: string
+	createdAt:  Date
 
 }
 
@@ -61,7 +61,7 @@ const userSchema = new mongoose.Schema(
 		},
 		phone: {
 			type: String,
-			required: true,
+			// required: true,
 			unique: true,
 			minLength: 15,
 		}

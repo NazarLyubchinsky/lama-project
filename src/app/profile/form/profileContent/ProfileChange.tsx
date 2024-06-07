@@ -1,6 +1,7 @@
-import { useTodoContext } from "@/context/useTodoContext";
 import { BsPencilFill } from "react-icons/bs";
 import { ImCross } from 'react-icons/im'
+import styles from './style.module.scss';
+
 
 interface PropsProfileChange {
 	title: string
@@ -9,11 +10,12 @@ interface PropsProfileChange {
 }
 
 const ProfileChange = ({ title, onClick, change }: PropsProfileChange) => {
+
 	return (
-		<div className="profile__change">
-			<h3 className='profile__content-title'>{title}</h3>
+		<div className={styles.profile__change}>
+			<h3 className={styles.profile__content_title}>{title}</h3>
 			<span>
-				<span className='profile__content-write' onClick={onClick}>
+				<span className={styles.profile__content_write} onClick={onClick}>
 					{change ? <><ImCross /> Cancel </> : <>
 						<BsPencilFill /> Change </>}
 				</span>

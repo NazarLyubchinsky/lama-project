@@ -2,11 +2,10 @@
 
 import { addPost } from "@/lib/action";
 import styles from "./style.module.scss";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
 import { Session } from "next-auth";
 import { useFormReset } from "@/hooks/useFormReset";
-import Preloader from "../Preloader/Preloader";
-import { Suspense, useState } from "react";
+
 interface AdminPostFormProps {
 	userId: Session["user"]["id"];
 }
@@ -21,7 +20,6 @@ interface AdminPostFormData {
 const initialState: AdminPostFormData = { userId: '', title: '', error: '', slug: '', img: '', desc: '' };
 const AdminPostForm = ({ userId }: AdminPostFormProps) => {
 	const [state, formAction] = useFormState(addPost, initialState);
-	// const status = useFormStatus();
 	const formRefReset = useFormReset(state);
 	return (
 		<form ref={formRefReset} action={formAction} className={styles.container}>

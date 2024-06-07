@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import styles from "./style.module.scss";
 import { auth } from "@/lib/auth";
-import AdminPosts from "@/components/AdminPosts/AdminPosts";
-import AdminPostForm from "@/components/AdminPostForm/AdminPostForm";
-import AdminUsers from "@/components/AdminUsers/AdminUsers";
-import AdminUserForm from "@/components/AdminUserForm/AdminUserForm";
+import AdminPosts from "@/components/AdminPanel/AdminPosts/AdminPosts";
+import AdminPostForm from "@/components/AdminPanel/AdminPostForm/AdminPostForm";
+import AdminUsers from "@/components/AdminPanel/AdminUsers/AdminUsers";
+import AdminUserForm from "@/components/AdminPanel/AdminUserForm/AdminUserForm";
 
 const AdminPage = async () => {
 

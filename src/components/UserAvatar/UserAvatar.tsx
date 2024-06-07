@@ -12,7 +12,7 @@ export const UserAvatar = async ({ img, width = 50, height = 50 }: UserAvatarPro
 	return (
 		<Image
 			className={styles.avatar}
-			src={img ? img : "/noavatar.png"}
+			src={img ? `${img}` : "/noavatar.png"}
 			alt={'user avatar'}
 			width={width}
 			height={height}

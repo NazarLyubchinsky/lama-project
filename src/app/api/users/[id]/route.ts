@@ -10,13 +10,17 @@ interface IParams {
 export const GET = async (request: NextApiRequest, { params }: IParams) => {
 	const { id } = params;
 	noStore();
+	connectToDb();
+
+	const user = await User.findById(id);
 	try {
 		connectToDb();
 
 		const user = await User.findById(id);
+
 		return NextResponse.json(user);
 	} catch (err) {
 		console.log(err);
-		throw new Error("Failed to fetch post!");
+		throw new Error("Failed to fetch user!");
 	}
 };

@@ -1,19 +1,21 @@
-import { useTodoContext } from '@/context/useTodoContext';
 import { useFormStatus } from 'react-dom';
 
+import styles from './style.module.scss';
 
+interface PropsProfileButton {
+	change: boolean
+}
 
-const ProfileButton = ({ change }) => {
-	const { userChange } = useTodoContext();
+const ProfileButton = ({ change }: PropsProfileButton) => {
 	const { pending } = useFormStatus();
 	return (
 		change &&
 		<>
-			<button className='profile__info-save' aria-disabled={pending} disabled={pending}>{pending ? 'pending...' : 'save'}</button>
+			<button className={styles.profile__info_save} aria-disabled={pending} disabled={pending}>{pending ? 'pending...' : 'save'}</button>
 		</>
-
-
 	)
 }
 
 export default ProfileButton
+
+

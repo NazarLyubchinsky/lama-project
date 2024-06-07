@@ -1,8 +1,6 @@
 import Image from "next/image";
 import styles from "./style.module.scss";
-import { Suspense } from "react";
 import PostUser from "@/components/PostUser/postUser";
-import Preloader from "@/components/Preloader/Preloader";
 import { getDataPost } from "@/utils/getData/getDataPost";
 import { formatDate } from "@/utils/formatDate";
 
