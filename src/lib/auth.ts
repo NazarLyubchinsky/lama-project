@@ -23,12 +23,9 @@ declare module "next-auth" {
 }
 
 const login = async (credentials: CredentialsProps): Promise<userProps> => {
-	console.log(credentials.password)
 	try {
 		connectToDb();
 		const user = await User.findOne({ email: credentials.email });
-		console.log(user)
-		console.log(user.password)
 		if (!user) throw new Error("Wrong credentials!");
 	
 		const isPasswordCorrect = await bcrypt.compare(
@@ -36,8 +33,6 @@ const login = async (credentials: CredentialsProps): Promise<userProps> => {
 			user.password,
 		);
 	
-		console.log(isPasswordCorrect)
-
 		if (!isPasswordCorrect) throw new Error("Wrong credentials!");
 
 		return user;

@@ -8,6 +8,7 @@ export const metadata = {
 };
 
 const ContactPage = () => {
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.imgContainer}>
