@@ -21,7 +21,8 @@
     "react-input-mask": "^2.0.4",
     "react-loading-overlay-nextgen": "^1.2.9",
     "react-toastify": "^10.0.5",
-    "sass": "^1.74.1"
+    "sass": "^1.74.1",
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

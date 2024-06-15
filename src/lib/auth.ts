@@ -5,9 +5,10 @@ import { connectToDb } from "./utils";
 import { User, userProps } from "./models";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
+import { hashPassword } from "@/utils/hashPassword";
 
 type CredentialsProps = {
-	username: string;
+	email: string;
 	password: string;
 }
 declare module "next-auth" {
@@ -22,16 +23,20 @@ declare module "next-auth" {
 }
 
 const login = async (credentials: CredentialsProps): Promise<userProps> => {
+	console.log(credentials.password)
 	try {
 		connectToDb();
-		const user = await User.findOne({ username: credentials.username });
-
+		const user = await User.findOne({ email: credentials.email });
+		console.log(user)
+		console.log(user.password)
 		if (!user) throw new Error("Wrong credentials!");
-
+	
 		const isPasswordCorrect = await bcrypt.compare(
 			credentials.password,
-			user.password
+			user.password,
 		);
+	
+		console.log(isPasswordCorrect)
 
 		if (!isPasswordCorrect) throw new Error("Wrong credentials!");
 
@@ -57,7 +62,7 @@ export const {
 		CredentialsProvider({
 			async authorize(credentials: Partial<CredentialsProps>) {
 				try {
-					if (credentials.username === undefined) {
+					if (credentials.email === undefined) {
 						throw new Error("Username is required");
 					}
 					const user = await login(credentials as CredentialsProps);
@@ -70,6 +75,8 @@ export const {
 	],
 	callbacks: {
 		async signIn({ user, account, profile }) {
+			const hashedPassword = await hashPassword('s0/\/\P4$$w0rD')
+			
 			if (account && account.provider === "github") {
 				connectToDb();
 				try {
@@ -79,6 +86,7 @@ export const {
 							username: profile?.login,
 							email: profile?.email,
 							img: profile?.avatar_url,
+							password: hashedPassword
 						});
 
 						await newUser.save();

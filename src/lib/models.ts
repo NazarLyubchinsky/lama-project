@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 
 export interface userProps {
-	// slug: string
 	_id: string
 	isAdmin: boolean;
 	password: string;
@@ -24,7 +23,8 @@ export interface postProps {
 	img?: string
 	slug: string
 	email: string
-	createdAt:  Date
+	createdUser: string
+	createdAt: Date
 
 }
 
@@ -35,14 +35,14 @@ const userSchema = new mongoose.Schema(
 			required: true,
 			unique: true,
 			minLength: 5,
-			maxLength: 15
+			maxLength: 35
 		},
 		email: {
 			type: String,
 			required: true,
 			unique: true,
 			maxLength: 50,
-			match: /^[a-z0-9]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
+			match: /^[a-z0-9.+]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
 			lowercase: true,
 			trim: true,
 		},
@@ -61,7 +61,6 @@ const userSchema = new mongoose.Schema(
 		},
 		phone: {
 			type: String,
-			// required: true,
 			unique: true,
 			minLength: 15,
 		}
@@ -93,6 +92,9 @@ const postSchema = new mongoose.Schema(
 			required: true,
 			unique: true,
 		},
+		createdUser:{
+			type: String,
+		}
 	},
 	{ timestamps: true }
 );

@@ -1,6 +1,6 @@
 export function formatDate(date: Date) {
 	if (!date) {
-		return ""; // Handle invalid dates gracefully
+		return ""; 
 	}
 
 	const formattedDate = new Date(date).toLocaleDateString("en-US", {

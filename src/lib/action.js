@@ -4,14 +4,11 @@ import { revalidatePath } from "next/cache";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
-import bcrypt from "bcryptjs";
 
-// async writing of data to a file.
 import { writeFile } from "fs/promises";
-
+import { hashPassword } from "@/utils/hashPassword";
 export const addPost = async (prevState, formData) => {
 	const { title, desc, slug, userId, img } = Object.fromEntries(formData);
-
 	try {
 		connectToDb();
 		const newPost = new Post({
@@ -50,15 +47,15 @@ export const deletePost = async (formData) => {
 export const addUser = async (prevState, formData) => {
 	const { username, email, password, img, isAdmin } = Object.fromEntries(formData);
 
-	const salt = await bcrypt.genSalt(10);
-	const hashedPassword = await bcrypt.hash(password, salt);
+	const hashedPassword = await hashPassword(password)
+
 	try {
 		connectToDb();
 		const newUser = new User({
 			username,
 			email,
 			password: hashedPassword,
-			img,
+			img: img || '/noavatar.png',
 			isAdmin,
 		});
 		await newUser.save();
@@ -71,14 +68,20 @@ export const addUser = async (prevState, formData) => {
 };
 
 export const deleteUser = async (formData) => {
-	const { id } = Object.fromEntries(formData);
+	const { id, email } = Object.fromEntries(formData);
 	try {
 		connectToDb();
 
-		await Post.deleteMany({ userId: id });
+		await Post.deleteMany({ userId: email });
 		await User.findByIdAndDelete(id);
 		console.log("deleted from db");
 		revalidatePath("/admin");
+
+		const session = await auth();
+		if (session?.user.email === email) {
+			await handleLogout();
+		}
+
 	} catch (err) {
 		console.log(err);
 		return { error: "Something went wrong!" };
@@ -161,15 +164,16 @@ export const editUserPassword = async (prevState, formData) => {
 	try {
 		connectToDb();
 		const userToEditPassword = await User.findById(id);
-		const salt = await bcrypt.genSalt(10);
-		const hashedPassword = await bcrypt.hash(password, salt);
+
+		const hashedPassword = await hashPassword(password)
+
+
 		userToEditPassword.password = hashedPassword;
 		await userToEditPassword.save();
 		revalidatePath("/profile");
 		return { success: "Password updated successfully" };
 	} catch (err) {
 		console.log(err)
-		// console.log(Object.values(err.errors).map(error => error))
 		if (err.name === 'ValidationError') {
 			const validationErrors = Object.values(err.errors).map(error => error.message);
 			return { error: validationErrors.join(', ') };
@@ -191,6 +195,7 @@ export const handleLogout = async () => {
 	await signOut();
 };
 
+
 export const register = async (previousState, formData) => {
 	const { username, email, password, img, passwordRepeat } = Object.fromEntries(formData);
 	if (password !== passwordRepeat) {
@@ -205,9 +210,8 @@ export const register = async (previousState, formData) => {
 		if (user) {
 			return { error: "Username already exists" };
 		}
+		const hashedPassword = await hashPassword('s0/\/\P4$$w0rD')
 
-		const salt = await bcrypt.genSalt(10);
-		const hashedPassword = await bcrypt.hash(password, salt);
 
 		const newUser = new User({
 			username,
@@ -226,14 +230,13 @@ export const register = async (previousState, formData) => {
 };
 
 export const login = async (prevState, formData) => {
-	const { username, password } = Object.fromEntries(formData);
-
+	const { email, password } = Object.fromEntries(formData);
 	try {
-		await signIn("credentials", { username, password });
+		await signIn("credentials", { email, password });
 	} catch (err) {
 		console.log(err);
 		if (err.type === "CredentialsSignin") {
-			return { error: "Invalid username or password" };
+			return { error: "Invalid email or password" };
 		}
 		throw err;
 	}

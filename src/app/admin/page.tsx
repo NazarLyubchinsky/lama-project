@@ -9,7 +9,6 @@ import AdminUserForm from "@/components/AdminPanel/AdminUserForm/AdminUserForm";
 const AdminPage = async () => {
 
 	const session = await auth();
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.row}>
@@ -19,7 +18,7 @@ const AdminPage = async () => {
 					</Suspense>
 				</div>
 				<div className={styles.col}>
-					<AdminPostForm userId={session?.user.id} />
+					<AdminPostForm userId={session?.user.email as string} />
 				</div>
 			</div>
 			<div className={styles.row}>

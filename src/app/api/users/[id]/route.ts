@@ -4,19 +4,20 @@ import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { unstable_noStore as noStore } from "next/cache";
 interface IParams {
+
 	params: { id: string };
 }
 
-export const GET = async (request: NextApiRequest, { params }: IParams) => {
+export const GET = async (request: any, { params }: IParams) => {
 	const { id } = params;
 	noStore();
 	connectToDb();
 
-	const user = await User.findById(id);
+
 	try {
 		connectToDb();
 
-		const user = await User.findById(id);
+		const user = await User.findOne({ email: id });
 
 		return NextResponse.json(user);
 	} catch (err) {

@@ -1,13 +1,12 @@
 import { Post } from "@/lib/models";
 import { connectToDb } from "@/lib/utils";
-import { NextApiRequest } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 interface IParams {
 	params: { slug: string };
 }
-export const GET = async (request: NextApiRequest, { params }: IParams) => {
+export const GET = async (request: any, { params }: IParams) => {
 	const { slug } = params;
-
 	try {
 		connectToDb();
 
@@ -19,7 +18,10 @@ export const GET = async (request: NextApiRequest, { params }: IParams) => {
 	}
 };
 
-export const DELETE = async (request: NextApiRequest, { params }: IParams) => {
+
+
+
+export const DELETE = async (request: any, { params }: IParams) => {
 	const { slug } = params;
 
 	try {

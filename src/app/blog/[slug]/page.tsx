@@ -25,9 +25,7 @@ export const generateMetadata = async ({ params }: BlogCardProps) => {
 
 const SinglePostPage = async ({ params }: BlogCardProps) => {
 	const { slug } = params;
-
 	const post = await getDataPost(slug);
-
 	return (
 		<div className={styles.container}>
 			{post.img && (
@@ -38,9 +36,7 @@ const SinglePostPage = async ({ params }: BlogCardProps) => {
 			<div className={styles.textContainer}>
 				<h1 className={styles.title}>{post.title}</h1>
 				<div className={styles.detail}>
-					{post && (
 						<PostUser userId={post.userId} />
-					)}
 					<div className={styles.detailText}>
 						<span className={styles.detailTitle}>Published</span>
 						<span className={styles.detailValue}>

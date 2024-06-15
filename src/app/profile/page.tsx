@@ -9,9 +9,7 @@ import { ContextProvider } from '@/context/ContextProvider';
 import FileUploadForm from '@/components/FileUploadForm/FileUploadForm';
 const ProfilePage = async () => {
 	const session = await auth();
-	const user = await getDataUser(session?.user.id as string);
-
-
+	const user = await getDataUser(session?.user.email as string);
 	return (
 		<ContextProvider>
 			<div className={styles.content}>

@@ -1,37 +1,3 @@
-// 'use client'
-// import { editUserImage } from "@/lib/action";
-// import { userProps } from "@/lib/models";
-// import { useFormState } from "react-dom";
-// import styles from './style.module.scss'
-// interface PropsFileUploadForm {
-// 	user: userProps
-// }
-// const FileUploadForm = ({ user }: PropsFileUploadForm) => {
-// 	const [stateUser, formAction] = useFormState(editUserImage, undefined);
-// 	return (
-// 		// <form action={formAction}>
-// 		<div>
-// 			<input type="hidden" name="id" value={user._id} />
-// 			<label htmlFor="file-upload" className={styles.fileUploadLabel}>
-// 				Upload Images
-// 				<input id="file-upload" style={{ display: 'none' }} type="file" name="img"
-// 					onChange={async (e) => {
-// 					const file = e.target.files?.[0];
-// 					if (!file) return;
-// 					const formData = new FormData();
-// 					formData.append('img', file);
-// 					formData.append('id', user._id);
-// 					await editUserImage(formData);
-// 					}}
-// 				/>
-// 			</label>
-// 		</div>
-// 		// </form>
-// 	)
-// }
-
-// export default FileUploadForm
-
 
 
 'use client'
